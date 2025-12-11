@@ -45,7 +45,7 @@ export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFor
           className="border px-2 py-1 rounded"
         />
         <input
-          type="date"
+
           placeholder="Expiry Date (optional)"
           value={expiryDate}
           onChange={(e) => setExpiryDate(e.target.value)}
@@ -58,10 +58,10 @@ export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFor
           className="border px-2 py-1 rounded"
         />
         <div className="flex justify-end space-x-2">
-          <button type="button" onClick={onClose} className="px-4 py-1 rounded border">
+          <button type="button" onClick={onClose} className="px-4 py-1 rounded border cursor-pointer">
             Cancel
           </button>
-          <button type="submit" className="px-4 py-1 rounded bg-blue-500 text-white">
+          <button type="submit" className="px-4 py-1 rounded bg-blue-500 text-white cursor-pointer">
             Add
           </button>
         </div>
