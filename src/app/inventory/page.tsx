@@ -31,6 +31,12 @@ export default function Inventory() {
                 </div>
             </div>
 
+             {/* Scrollable Items Area */}
+            <div className="max-h-64 overflow-y-auto pr-2 space-y-4 mt-4">
+                
+                
+
+            </div>
             
           
         </div>
