@@ -1,8 +1,14 @@
 // Item component
+type ItemCardProps = {
+  itemName: string;
+  enteredDate: string;
+  expiryDate: string;
+  notes: string;
+};
+
 
 export default function ItemCard(
-  { itemName, enteredDate, expiryDate, notes }: 
-  { itemName: string; enteredDate: string; expiryDate: string; notes: string}
+  { itemName, enteredDate, expiryDate, notes }: ItemCardProps
 ) {
   return (
     

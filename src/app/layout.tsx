@@ -1,5 +1,5 @@
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/app/components/Sidebar";
 
 export const metadata = {
   title: "Dashboard",
