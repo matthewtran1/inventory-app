@@ -4,6 +4,7 @@ import { useState } from "react";
 import ItemCard from "../components/ItemCard";
 import AddItemForm from "../components/AddItemForm";
 import { Item, Storage } from "../types";
+import AddStorageForm from "../components/AddStorageForm";
 
 export default function Inventory() {
   const [inventory, setInventory] = useState<Storage[]>([
@@ -12,9 +13,16 @@ export default function Inventory() {
     { id: "pantry", name: "Pantry", items: [] },
   ]);
 
+  // Item form
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  // Storage ID for which the form is active
   const [activeStorageId, setActiveStorageId] = useState<string | null>(null);
 
+  // Storage Form
+  const [isStorageFormOpen, setIsStorageFormOpen] = useState(false);
+
+  // Add item to correct storage
   const handleAddItem = (storageId: string, newItem: Item) => {
     setInventory((prev) =>
       prev.map((storage) =>
@@ -25,9 +33,23 @@ export default function Inventory() {
     );
   };
 
+  // create new storage
+  function handleAddStorage(newStorage: Storage) {
+  setInventory((prev) => [...prev, newStorage]);
+ }
+
   return (
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black px-8 py-8">
-      <div className="text-3xl font-semibold mb-8">Inventory</div>
+      <div className="bg-white shadow-md rounded-xl p-4 mb-8 flex items-center justify-between">
+        <h1 className="text-3xl font-semibold text-gray-800">Inventory</h1>
+
+        <div
+          className="text-3xl font-semibold cursor-pointer px-3 py-1 rounded-md hover:bg-blue-500 hover:text-white transition-colors"
+          onClick={() => setIsStorageFormOpen(true)}
+        >
+          +
+        </div>
+      </div>
 
       {inventory.map((storage) => (
         <div
@@ -62,6 +84,13 @@ export default function Inventory() {
         </div>
       ))}
 
+      {isStorageFormOpen && (
+        <AddStorageForm
+          onSubmit={handleAddStorage}
+          onClose={() => setIsStorageFormOpen(false)}
+        />
+      )}
+
       {/* Add Item Popup */}
       {isFormOpen && activeStorageId && (
         <AddItemForm
@@ -70,6 +99,7 @@ export default function Inventory() {
           onClose={() => setIsFormOpen(false)}
         />
       )}
+
     </div>
   );
 }
