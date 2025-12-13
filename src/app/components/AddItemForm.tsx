@@ -19,6 +19,7 @@ export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFor
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Create new item, with random id
     const newItem: Item = {
       id: crypto.randomUUID(),
       itemName,

@@ -7,10 +7,11 @@ import { Item, Storage } from "../types";
 import AddStorageForm from "../components/AddStorageForm";
 
 export default function Inventory() {
+
+  // Basic storage stuff
   const [inventory, setInventory] = useState<Storage[]>([
     { id: "fridge", name: "Fridge", items: [], notes: '' },
     { id: "freezer", name: "Freezer", items: [], notes: '' },
-    { id: "pantry", name: "Pantry", items: [], notes: '' },
   ]);
 
   // Item form
@@ -40,17 +41,21 @@ export default function Inventory() {
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black px-8 py-8">
-      <div className="bg-white shadow-md rounded-xl p-4 mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-semibold text-gray-800">Inventory</h1>
+      <div className="bg-white shadow-md rounded-xl p-4 mb-8 ">
+        <div className="flex justify-between">
+          <h1 className="text-3xl font-semibold text-gray-800">Inventory</h1>
 
-        <div
-          className="text-3xl font-semibold cursor-pointer px-3 py-1 rounded-md hover:bg-blue-500 hover:text-white transition-colors"
-          onClick={() => setIsStorageFormOpen(true)}
-        >
-          +
+          <div
+            className="text-3xl font-semibold cursor-pointer px-3 py-1 rounded-md hover:bg-blue-500 hover:text-white transition-colors"
+            onClick={() => setIsStorageFormOpen(true)}
+          >
+            +
+          </div>
         </div>
+        <p>Manage your inventory</p>
       </div>
 
+     {/* Render Storage */}
       {inventory.map((storage) => (
         <div
           key={storage.id}
@@ -76,6 +81,7 @@ export default function Inventory() {
 
           {/* Scrollable Items Area */}
           <div className="max-h-64 overflow-y-auto pr-2 space-y-4 mt-4">
+            {/* Render items inside storage */}
             {storage.items.map((item) => (
               <ItemCard
                 key={item.id}

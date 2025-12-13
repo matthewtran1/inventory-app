@@ -15,6 +15,7 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Create new storage with unique id
     const newStorage: Storage = {
       id: crypto.randomUUID(),
       name: storageName,
