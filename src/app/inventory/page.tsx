@@ -8,9 +8,9 @@ import AddStorageForm from "../components/AddStorageForm";
 
 export default function Inventory() {
   const [inventory, setInventory] = useState<Storage[]>([
-    { id: "fridge", name: "Fridge", items: [] },
-    { id: "freezer", name: "Freezer", items: [] },
-    { id: "pantry", name: "Pantry", items: [] },
+    { id: "fridge", name: "Fridge", items: [], notes: '' },
+    { id: "freezer", name: "Freezer", items: [], notes: '' },
+    { id: "pantry", name: "Pantry", items: [], notes: '' },
   ]);
 
   // Item form
@@ -35,8 +35,8 @@ export default function Inventory() {
 
   // create new storage
   function handleAddStorage(newStorage: Storage) {
-  setInventory((prev) => [...prev, newStorage]);
- }
+    setInventory((prev) => [...prev, newStorage]);
+  } 
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black px-8 py-8">
@@ -69,6 +69,11 @@ export default function Inventory() {
             </div>
           </div>
 
+          {/* Add Storage Notes */}
+        {storage.notes && (
+          <p className="mt-2 text-gray-500 text-sm">{storage.notes}</p>
+        )}
+
           {/* Scrollable Items Area */}
           <div className="max-h-64 overflow-y-auto pr-2 space-y-4 mt-4">
             {storage.items.map((item) => (
@@ -84,6 +89,7 @@ export default function Inventory() {
         </div>
       ))}
 
+      {/* Add Storage Popup */}
       {isStorageFormOpen && (
         <AddStorageForm
           onSubmit={handleAddStorage}

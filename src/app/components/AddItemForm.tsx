@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { Item } from "../types";
 
+// type props
 type AddItemFormProps = {
   storageId: string;
   onSubmit: (storageId: string, item: Item) => void;
   onClose: () => void;
 };
 
+// Form popup to add items
 export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFormProps) {
   const [itemName, setItemName] = useState("");
   const [expiryDate, setExpiryDate] = useState("");

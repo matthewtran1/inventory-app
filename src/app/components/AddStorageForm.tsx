@@ -10,6 +10,7 @@ type AddStorageFormProps = {
 
 export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProps) {
   const [storageName, setStorageName] = useState("");
+  const [notes, setNotes] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
       id: crypto.randomUUID(),
       name: storageName,
       items: [],
+      notes,
     };
 
     onSubmit(newStorage);
@@ -37,6 +39,12 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
           value={storageName}
           onChange={(e) => setStorageName(e.target.value)}
           required
+          className="border px-2 py-1 rounded"
+        />
+        <textarea
+          placeholder="Notes (optional)"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
           className="border px-2 py-1 rounded"
         />
         <div className="flex justify-end space-x-2">
