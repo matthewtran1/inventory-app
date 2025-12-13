@@ -40,7 +40,7 @@ export default function Inventory() {
   } 
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black px-8 py-8">
+    <div className="flex h-full flex-col font-sans dark:bg-black px-8 py-8">
       <div className="bg-white shadow-md rounded-xl p-4 mb-8 ">
         <div className="flex justify-between">
           <h1 className="text-3xl font-semibold text-gray-800">Inventory</h1>

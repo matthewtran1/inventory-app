@@ -1,5 +1,5 @@
 import "./globals.css";
-import Sidebar from "@/app/components/Sidebar";
+import Topbar from "./components/Topbar";
 
 export const metadata = {
   title: "Dashboard",
@@ -12,10 +12,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex h-screen bg-gray-100">
-        <Sidebar />
+      <body className="flex flex-col min-h-screen bg-gray-100">
+        {/* Top Bar */}
+        <Topbar />
 
-        <main className="flex-1 overflow-y-auto">
+        {/* Page Content */}
+        <main className="flex-1 overflow-y-auto bg-zinc-50">
           {children}
         </main>
       </body>
