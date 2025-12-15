@@ -2,9 +2,8 @@ export default function Dashboard() {
   return (
     <div
       className="p-4 bg-zinc-50 dark:bg-black"
-      style={{ height: 'calc(100vh - 64px)' }} // Adjust 64px to your Topbar height
+      style={{ height: 'calc(100vh - 64px)' }} 
     >
-      {/* 2x2 Grid, cards fill the entire remaining page */}
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 h-full">
         
         {/* Card 1 */}
