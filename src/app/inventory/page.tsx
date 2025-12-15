@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
 import AddItemForm from "../components/AddItemForm";
 import { Item, Storage } from "../types";
@@ -9,10 +9,7 @@ import AddStorageForm from "../components/AddStorageForm";
 export default function Inventory() {
 
   // Basic storage stuff
-  const [inventory, setInventory] = useState<Storage[]>([
-    { id: "fridge", name: "Fridge", items: [], notes: '' },
-    { id: "freezer", name: "Freezer", items: [], notes: '' },
-  ]);
+  const [inventory, setInventory] = useState<Storage[]>([]);
 
   // Item form
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -35,9 +32,20 @@ export default function Inventory() {
   };
 
   // create new storage
-  function handleAddStorage(newStorage: Storage) {
-    setInventory((prev) => [...prev, newStorage]);
-  } 
+  async function handleAddStorage(newStorage: Storage) {
+    setInventory(prev => [...prev, newStorage]);
+  }
+
+  // Fetches inventory on load
+  useEffect(() => {
+    async function loadInventory() {
+      const res = await fetch("/api/storages");
+      const data = await res.json();
+      setInventory(data);
+    }
+
+    loadInventory();
+  }, []);
 
   return (
     <div className="flex h-full flex-col font-sans dark:bg-black px-8 py-8">
@@ -82,7 +90,7 @@ export default function Inventory() {
           {/* Scrollable Items Area */}
           <div className="max-h-64 overflow-y-auto pr-2 space-y-4 mt-4">
             {/* Render items inside storage */}
-            {storage.items.map((item) => (
+            {storage.items?.map((item) => (
               <ItemCard
                 key={item.id}
                 itemName={item.itemName}
