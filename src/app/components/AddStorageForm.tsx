@@ -12,7 +12,7 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
   const [storageName, setStorageName] = useState("");
   const [notes, setNotes] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Create new storage with unique id
@@ -23,8 +23,23 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
       notes,
     };
 
-    onSubmit(newStorage);
-    onClose();
+    try {
+      const res = await fetch("/api/storages", {
+        method: "POST",
+        body: JSON.stringify(newStorage),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        onSubmit(newStorage); 
+        onClose();
+      } else {
+        alert("Failed to add storage");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error adding storage");
+    }
   };
 
   return (
