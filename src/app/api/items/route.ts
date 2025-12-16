@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
   try {
     const body: ItemPayload = await request.json();
     const { id, storage_id, name, entered_date, expired_date, notes } = body;
-    console.log("Received item payload:", body);
+    
     if (
       typeof id !== "string" ||
       typeof name !== "string" ||
@@ -43,6 +43,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // [] is array destructuring to get first item from returned rows
+    /*
+    const arr = [10, 20, 30];
+    const [first] = arr;
+    console.log(first); // 10
+    */
     const [item] = await sql`
       INSERT INTO "Inventory"."items"
         (storage_id, name, entered_date, expired_date, notes)
@@ -57,6 +63,33 @@ export async function POST(request: NextRequest) {
     console.error(err);
     return NextResponse.json(
       { error: "Failed to insert item" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const body: ItemPayload = await request.json();
+    const { id, storage_id} = body;
+
+    const [item] = await sql`
+      DELETE FROM "Inventory"."items"
+      WHERE id = ${id} AND storage_id = ${storage_id}
+      RETURNING *
+    `;
+    
+    if (!item) {
+      return NextResponse.json({ error: "Item not found" }, { status: 404 });
+    }
+    return NextResponse.json(item, { status: 200 });
+    
+  }
+
+  catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Failed to delete item" },
       { status: 500 }
     );
   }

@@ -38,6 +38,32 @@ export default function Inventory() {
     setInventory(prev => [...prev, newStorage]);
   }
 
+  // Delete item from storage
+  const handleDeleteItem = async (storageId: string, itemId: string) => {
+    setInventory(prev =>
+      prev.map(storage =>
+        storage.id === storageId
+          ? { ...storage, items: storage.items.filter(item => item.id !== itemId) }
+          : storage
+      )
+    );
+
+    try {
+      await fetch("/api/items", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: itemId,
+          storage_id: storageId, 
+        }),
+      });
+
+    } catch (err) {
+      console.error(err);
+      alert(`Error failed to delete item from storage ${storageId}`);
+    }
+  };
+
   useEffect(() => {
     async function loadData() {
       // Fetch storages
@@ -106,10 +132,12 @@ export default function Inventory() {
             {storage.items?.map((item) => (
               <ItemCard
                 key={item.id}
+                id = {item.id}
                 itemName={item.name}
                 enteredDate={item.entered_date}
                 expiryDate={item.expired_date}
                 notes={item.notes}
+                onDelete={(itemId) => handleDeleteItem(storage.id, itemId)}
               />
             ))}
           </div>

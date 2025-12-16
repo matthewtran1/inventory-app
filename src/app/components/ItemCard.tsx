@@ -1,14 +1,16 @@
 // Item component
 type ItemCardProps = {
+  id: string;
   itemName: string;
   enteredDate: string;
   expiryDate: string;
   notes: string;
+  onDelete: (id: string) => void;
 };
 
 
 export default function ItemCard(
-  { itemName, enteredDate, expiryDate, notes }: ItemCardProps
+  { id, itemName, enteredDate, expiryDate, notes, onDelete }: ItemCardProps
 ) {
 
   // Calculate expiry status
@@ -38,15 +40,23 @@ export default function ItemCard(
 
   return (
     
-    <div className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition">
+    <div className="relative border border-gray-200 rounded-lg p-4 hover:shadow-sm transition">
       <div className="flex justify-between">
         <div className="text-lg font-medium">{itemName}</div>
-        <div className={`border rounded-lg p-4 transition ${statusColors[expiryStatus]}`}></div>
+        <div className="flex flex-col justify-between items-center h-full">
+          <div className={`border rounded-lg p-4 transition ${statusColors[expiryStatus]}`}></div>
+        </div>
       </div>
+
       <div className="text-gray-600 text-sm">Entered: {enteredDate}</div>
       <div className="text-gray-600 text-sm">Expires: {expiryDate}</div>
       <div className="text-gray-600 text-sm">Notes: {notes}</div>
+
+      <button className="absolute bottom-4 right-4 border rounded-lg p-1 text-gray-500 hover:text-red-500 cursor-pointer" onClick={() => onDelete(id)}>
+        Delete
+      </button>
     </div>
+
 
   )
 }
