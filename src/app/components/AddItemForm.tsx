@@ -22,6 +22,7 @@ export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFor
     // Create new item, with random id
     const newItem: Item = {
       id: crypto.randomUUID(),
+      storage_id: storageId,
       name: itemName,
       entered_date: new Date().toISOString().slice(0, 10),
       expired_date: expiryDate,

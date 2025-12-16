@@ -5,7 +5,7 @@ const sql = neon(process.env.DATABASE_URL!);
 
 interface ItemPayload {
   id: string;
-  storage_Id: string;
+  storage_id: string;
   name: string;
   entered_date?: string;
   expired_date?: string;
@@ -26,7 +26,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body: ItemPayload = await request.json();
-    const { id, storage_Id, name, entered_date, expired_date, notes } = body;
+    const { id, storage_id, name, entered_date, expired_date, notes } = body;
     console.log("Received item payload:", body);
     if (
       typeof id !== "string" ||
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       INSERT INTO "Inventory"."items"
         (storage_id, name, entered_date, expired_date, notes)
       VALUES
-        (${storage_Id}, ${name}, ${entered_date ?? null}, ${expired_date ?? null}, ${notes ?? null})
+        (${storage_id}, ${name}, ${entered_date ?? null}, ${expired_date ?? null}, ${notes ?? null})
       RETURNING *
     `;
 

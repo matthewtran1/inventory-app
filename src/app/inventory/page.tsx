@@ -38,22 +38,26 @@ export default function Inventory() {
     setInventory(prev => [...prev, newStorage]);
   }
 
-  // Fetches inventory and items on load
   useEffect(() => {
-    async function loadInventory() {
-      const res = await fetch("/api/storages");
-      const data = await res.json();
-      setInventory(data);
+    async function loadData() {
+      // Fetch storages
+      const resStorages = await fetch("/api/storages");
+      const storages: Storage[] = await resStorages.json();
+
+      // Fetch items
+      const resItems = await fetch("/api/items");
+      const items: Item[] = await resItems.json();
+
+      // Attach items to their storage
+      const storagesWithItems = storages.map(storage => ({
+        ...storage,
+        items: items.filter(item => item.storage_id === storage.id),
+      }));
+
+      setInventory(storagesWithItems);
     }
 
-    async function loadItems() {
-      const res = await fetch("/api/items");
-      const data = await res.json();
-      
-    }
-
-    loadInventory();
-    loadItems()
+    loadData();
   }, []);
 
   return (
