@@ -39,27 +39,41 @@ export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFor
         onSubmit={handleSubmit}
       >
         <h2 className="text-xl font-semibold">Add New Item</h2>
-        <input
-          type="text"
-          placeholder="Item Name"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-          required
-          className="border px-2 py-1 rounded"
-        />
-        <input
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-gray-600">
+            Item Name
+          </label>
+          <input
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            required
+            className="border px-2 py-1 rounded"
+          />
+        </div>
 
-          placeholder="Expiry Date (optional)"
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
-          className="border px-2 py-1 rounded"
-        />
-        <textarea
-          placeholder="Notes (optional)"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          className="border px-2 py-1 rounded"
-        />
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-gray-600">
+            Expiry Date (optional)
+          </label>
+          <input
+            type="date"
+            value={expiryDate}
+            onChange={(e) => setExpiryDate(e.target.value)}
+            className="border px-2 py-1 rounded"
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-gray-600">
+            Notes (optional)
+          </label>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="border px-2 py-1 rounded"
+          />
+        </div>
         <div className="flex justify-end space-x-2">
           <button type="button" onClick={onClose} className="px-4 py-1 rounded border cursor-pointer">
             Cancel

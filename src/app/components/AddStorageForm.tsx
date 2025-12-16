@@ -49,20 +49,30 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
         onSubmit={handleSubmit}
       >
         <h2 className="text-xl font-semibold">Add New Storage</h2>
-        <input
-          type="text"
-          placeholder="Storage Name"
-          value={storageName}
-          onChange={(e) => setStorageName(e.target.value)}
-          required
-          className="border px-2 py-1 rounded"
-        />
-        <textarea
-          placeholder="Notes (optional)"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          className="border px-2 py-1 rounded"
-        />
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-gray-600">
+            Storage Name
+          </label>
+          <input
+            type="text"
+            value={storageName}
+            onChange={(e) => setStorageName(e.target.value)}
+            required
+            className="border px-2 py-1 rounded"
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-gray-600">
+            Notes (optional)
+          </label>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="border px-2 py-1 rounded"
+          />
+        </div>
+
         <div className="flex justify-end space-x-2">
           <button
             type="button"

@@ -25,7 +25,9 @@ export default function Inventory() {
     setInventory((prev) =>
       prev.map((storage) =>
         storage.id === storageId
-          ? { ...storage, items: [...storage.items, newItem] }
+            // Add the new item to the storage's items array
+            // If storage.items is undefined, default to an empty array first
+          ? { ...storage, items: [...(storage.items ?? []), newItem] }
           : storage
       )
     );
@@ -36,7 +38,7 @@ export default function Inventory() {
     setInventory(prev => [...prev, newStorage]);
   }
 
-  // Fetches inventory on load
+  // Fetches inventory and items on load
   useEffect(() => {
     async function loadInventory() {
       const res = await fetch("/api/storages");
@@ -44,7 +46,14 @@ export default function Inventory() {
       setInventory(data);
     }
 
+    async function loadItems() {
+      const res = await fetch("/api/items");
+      const data = await res.json();
+      
+    }
+
     loadInventory();
+    loadItems()
   }, []);
 
   return (

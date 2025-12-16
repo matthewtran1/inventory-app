@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to insert item" },
+      { error: "Failed to insert storage" },
       { status: 500 }
     );
   }
