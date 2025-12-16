@@ -102,9 +102,9 @@ export default function Inventory() {
             {storage.items?.map((item) => (
               <ItemCard
                 key={item.id}
-                itemName={item.itemName}
-                enteredDate={item.enteredDate}
-                expiryDate={item.expiryDate}
+                itemName={item.name}
+                enteredDate={item.entered_date}
+                expiryDate={item.expired_date}
                 notes={item.notes}
               />
             ))}

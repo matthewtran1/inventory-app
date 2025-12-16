@@ -1,9 +1,9 @@
 // src/app/types.ts
 export type Item = {
   id: string;
-  itemName: string;
-  enteredDate: string;
-  expiryDate: string;
+  name: string;
+  entered_date: string;
+  expired_date: string;
   notes: string;
 };
 
