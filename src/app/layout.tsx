@@ -2,7 +2,7 @@ import "./globals.css";
 import Topbar from "./components/Topbar";
 
 export const metadata = {
-  title: "Dashboard",
+  title: "Inventory Dashboard",
 };
 
 export default function RootLayout({
