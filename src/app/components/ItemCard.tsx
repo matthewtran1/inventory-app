@@ -23,8 +23,8 @@ export default function ItemCard(
   function checkExpiryStatus() {
     if (diffDays <= 0) {
       return "expired";           // expired or expiring today
-    } else if (diffDays <= 3) {
-      return "expiring-soon";     // 1–3 days remaining
+    } else if (diffDays <= 5) {
+      return "expiring-soon";     // 1–5 days remaining
     } else {
       return "fresh";             // more than 3 days left
     }

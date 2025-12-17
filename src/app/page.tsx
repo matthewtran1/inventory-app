@@ -1,3 +1,4 @@
+import ExpiredCard from "./components/ExpiredCard";
 import DashboardCard from "./components/DashboardCard";
 
 export default function Dashboard() {
@@ -8,13 +9,7 @@ export default function Dashboard() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 h-full">
 
-        <DashboardCard title="Expiring Soon" accent="red">
-          <ul className="space-y-2">
-            <li>🥦 Broccoli – Fridge – 2 days left</li>
-            <li>🥛 Milk – Fridge – 1 day left</li>
-            <li>🍞 Bread – Pantry – 3 days left</li>
-          </ul>
-        </DashboardCard>
+        <ExpiredCard />
 
         <DashboardCard title="Recipe Suggestions" accent="green">
           <ul className="space-y-2">
