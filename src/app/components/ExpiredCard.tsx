@@ -50,11 +50,12 @@ export default function ExpiringSoonCard() {
     };
 
     fetchExpiringItems();
+    
   }, []);
 
   // Group items by storage with proper typing
   type GroupedItems = Record<string, ItemWithDays[]>;
-
+  
   // Use `reduce` to transform the flat array of expiredItems
   // into an object grouped by storage
   const groupedByStorage: GroupedItems = expiredItems.reduce(
@@ -73,32 +74,54 @@ export default function ExpiringSoonCard() {
 
   return (
     <DashboardCard title="Expiring Soon" accent="red">
-      
       <ul className="space-y-4">
         {expiredItems.length === 0 ? (
           <li>No items expiring soon!</li>
         ) : (
           Object.entries(groupedByStorage).map(([storage, items]) => (
             <li key={storage}>
-              <div className='flex flex-col rounded-md border p-2'>
-              {/* Storage header */}
-              <p className="underline underline-offset-2">{storage}</p>
-              {/* Items in this storage */}
-              <ul className="mt-2 space-y-2">
-                {items.map((item, index) => (
-                  <li
-                    key={index}
-                  >
-                    <span className="text-sm ">{item.name}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex flex-col rounded-md border p-2">
+                {/* Storage header */}
+                <p className="underline underline-offset-2 font-medium">{storage}</p>
+
+                {/* Items in this storage */}
+                <ul className="mt-2 space-y-2">
+                  {items.map((item, index) => {
+                    // Badge style
+                    let badgeClasses = '';
+                    let badgeText = '';
+
+                    if (item.daysLeft < 0) {
+                      // Expired → red badge, same style as yellow, but no text
+                      badgeClasses = 'bg-red-100 border border-red-500 rounded-full w-8 h-5';
+                      badgeText = ''; // no days shown
+                    } else if (item.daysLeft <= 5) {
+                      // Expiring soon → yellow badge with days
+                      badgeClasses = 'bg-yellow-100 text-yellow-800 border border-yellow-500 rounded-full px-2 py-0.5';
+                      badgeText = `${item.daysLeft}d`;
+                    }
+
+                    return (
+                      <li
+                        key={index}
+                        className="flex items-center justify-between rounded-md border p-2"
+                      >
+                        {/* Item name */}
+                        <span className="font-medium text-gray-800 truncate">{item.name}</span>
+
+                        {/* Badge */}
+                        <span className={`text-xs font-semibold flex items-center justify-center ${badgeClasses}`}>
+                          {badgeText}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </li>
           ))
         )}
       </ul>
-    
     </DashboardCard>
   );
 }
