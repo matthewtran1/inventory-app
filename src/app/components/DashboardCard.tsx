@@ -26,7 +26,7 @@ export default function DashboardCard({
         {title}
       </h2>
 
-      <div className="flex-1 overflow-y-auto text-gray-800 dark:text-gray-200">
+      <div className="flex-1 overflow-y-auto text-gray-800 dark:text-gray-200" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         {children}
       </div>
     </div>
