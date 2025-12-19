@@ -64,6 +64,29 @@ export default function Inventory() {
     }
   };
 
+  // Delete storage
+  const handleDeleteStorage = async (storageId: string) => {
+    try {
+      const res = await fetch("/api/storages", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: storageId }),
+      });
+    
+      if (!res.ok) {
+        throw new Error("Failed to delete storage");
+      }
+
+      setInventory(prev =>
+        prev.filter(storage => storage.id !== storageId)
+      );
+    } catch (err) {
+      console.error(err);
+      alert("Error: failed to delete storage");
+    }
+  };
+
+
   useEffect(() => {
     async function loadData() {
       // Fetch storages
@@ -119,12 +142,35 @@ export default function Inventory() {
             >
               +
             </div>
+            
           </div>
 
-          {/* Add Storage Notes */}
-        {storage.notes && (
-          <p className="mt-2 text-gray-500 text-sm">{storage.notes}</p>
-        )}
+          <div className="flex justify-between">
+          
+            <div>
+            {/* Add Storage Notes */}
+            {storage.notes && (
+              <p className="mt-2 text-gray-500 text-sm">{storage.notes}</p>
+            )}
+            </div>
+
+            {/* Delete storage button */}
+            <div>
+              <div className="
+                border
+                rounded-lg
+                p-1
+                text-gray-500
+                hover:text-red-500
+                hover:border-red-300
+                hover:bg-red-50
+                cursor-pointer
+                transition
+              "
+              onClick={() => handleDeleteStorage(storage.id)}
+              >Delete</div>
+            </div>
+          </div>
 
           {/* Scrollable Items Area */}
           <div className="max-h-64 overflow-y-auto pr-2 space-y-4 mt-4">

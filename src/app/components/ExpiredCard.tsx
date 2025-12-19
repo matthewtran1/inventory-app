@@ -80,7 +80,7 @@ export default function ExpiringSoonCard() {
         ) : (
           Object.entries(groupedByStorage).map(([storage, items]) => (
             <li key={storage}>
-              <div className="flex flex-col rounded-md border p-2">
+              <div className="flex flex-col rounded-md border p-2 bg-white">
                 {/* Storage header */}
                 <p className="underline underline-offset-2 font-medium">{storage}</p>
 
@@ -104,7 +104,7 @@ export default function ExpiringSoonCard() {
                     return (
                       <li
                         key={index}
-                        className="flex items-center justify-between rounded-md border p-2"
+                        className="flex items-center justify-between"
                       >
                         {/* Item name */}
                         <span className="font-medium text-gray-800 truncate">{item.name}</span>

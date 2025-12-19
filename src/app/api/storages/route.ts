@@ -54,3 +54,40 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+// Delete storage
+export async function DELETE(request: NextRequest) {
+  try {
+    const { id } = await request.json();
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing storage id" },
+        { status: 400 }
+      );
+    }
+
+    const [storage] = await sql`
+      DELETE FROM "Inventory"."storage"
+      WHERE id = ${id}
+      RETURNING *
+    `;
+
+    if (!storage) {
+      return NextResponse.json(
+        { error: "Storage not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(storage, { status: 200 });
+
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Failed to delete storage" },
+      { status: 500 }
+    );
+  }
+}
+
