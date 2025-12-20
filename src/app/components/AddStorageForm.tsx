@@ -29,13 +29,14 @@ export default function AddStorageForm({ onSubmit, onClose }: AddStorageFormProp
         body: JSON.stringify(newStorage),
       });
 
-      const data = await res.json();
-      if (data.success) {
-        onSubmit(newStorage); 
-        onClose();
-      } else {
+      if (!res.ok) {
         alert("Failed to add storage");
+        return;
       }
+
+      const data = await res.json();
+      onSubmit(data); 
+      onClose();
     } catch (err) {
       console.error(err);
       alert("Error adding storage");
