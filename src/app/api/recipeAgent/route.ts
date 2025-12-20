@@ -46,14 +46,27 @@ export async function GET() {
       Generate 5 easy recipes most people could make at home.
       Rank them by popularity.
 
-      Return only JSON with recipe name and missing ingredients.
+      Return ONLY JSON, with this structure:
+
+      {
+        "recipes": [
+          {
+            "name": "Recipe Name",
+            "missingIngredients": ["ingredient1", "ingredient2"],
+            "prepTime": "15 mins",
+            "difficulty": "easy",
+            "instructions": "Step by step instructions..."
+          }
+        ],
+      }
       `;
 
     // Send prompt to agent
     const response = await agent.invoke({
       messages: [{ role: "user", content: prompt }],
     });
-    console.log(response)
+    //console.log(response)
+    
     return NextResponse.json(response);
   } catch (err) {
     console.error(err);

@@ -20,38 +20,28 @@ export async function GET() {
   return NextResponse.json(storages);
 }
 
-// Create a new storage
+// Create new storage
 export async function POST(request: NextRequest) {
   try {
     const body: StoragePayload = await request.json();
     const { id, name, notes } = body;
 
-    if (
-      typeof id !== "string" ||
-      typeof name !== "string" ||
-      name.trim().length === 0 ||
-      (notes !== undefined && typeof notes !== "string")
-    ) {
-      return NextResponse.json(
-        { error: "Invalid request payload" },
-        { status: 400 }
-      );
+    if (!id || !name || typeof id !== "string" || typeof name !== "string") {
+      return NextResponse.json({ error: "Invalid request payload" }, { status: 400 });
     }
 
-    const [storage] = await sql`
+    const result = await sql`
       INSERT INTO "Inventory"."storage" (id, name, notes)
       VALUES (${id}, ${name}, ${notes ?? null})
       RETURNING *
     `;
 
-    return NextResponse.json(storage, { status: 201 });
+    const storage = result[0];
 
+    return NextResponse.json(storage, { status: 201 });
   } catch (err) {
-    console.error(err);
-    return NextResponse.json(
-      { error: "Failed to insert storage" },
-      { status: 500 }
-    );
+    console.error("Error inserting storage:", err);
+    return NextResponse.json({ error: "Failed to insert storage" }, { status: 500 });
   }
 }
 

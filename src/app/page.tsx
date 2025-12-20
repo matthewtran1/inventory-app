@@ -1,4 +1,5 @@
 import ExpiredCard from "./components/ExpiredCard";
+import RecipeCard from "./components/RecipeCard";
 import DashboardCard from "./components/DashboardCard";
 
 export default function Dashboard() {
@@ -11,14 +12,8 @@ export default function Dashboard() {
 
         <ExpiredCard />
 
-        <DashboardCard title="Recipe Suggestions" accent="green">
-          <ul className="space-y-2">
-            <li>🥗 Veggie Stir Fry – Uses Broccoli, Carrot</li>
-            <li>🍲 Chicken Soup – Uses Chicken, Carrot</li>
-            <li>🥪 Sandwich – Uses Bread, Cheese</li>
-          </ul>
-        </DashboardCard>
-
+        <RecipeCard />
+        
         <DashboardCard title="Fridge Summary" accent="blue">
           <p>12 items</p>
           <p>Fullness: 75%</p>
