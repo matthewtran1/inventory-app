@@ -14,3 +14,13 @@ export type Storage = {
   items: Item[];
   notes: string
 };
+
+// Type for recipe data from API
+export type Recipe = {
+    name: string;
+    ingredients: string[];
+    missingIngredients: string[];
+    prepTime: string;
+    difficulty: string;
+    instructions: string;
+};

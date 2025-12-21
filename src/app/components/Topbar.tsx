@@ -20,6 +20,13 @@ export default function Topbar() {
           <Link href="/inventory" className="text-gray-700 hover:text-black font-medium">
             Inventory
           </Link>
+          <Link
+            href="/recipes"
+            className="text-gray-700 hover:text-black font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            Recipes
+          </Link>
           <Link href="/settings" className="text-gray-700 hover:text-black font-medium">
             Settings
           </Link>
@@ -50,6 +57,13 @@ export default function Topbar() {
             onClick={() => setIsOpen(false)}
           >
             Inventory
+          </Link>
+          <Link
+            href="/recipes"
+            className="text-gray-700 hover:text-black font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            Recipes
           </Link>
           <Link
             href="/settings"

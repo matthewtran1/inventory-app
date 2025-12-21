@@ -2,16 +2,7 @@
 
 import { useState } from "react";
 import DashboardCard from "./DashboardCard";
-
-// Type for recipe data from API
-type Recipe = {
-    name: string;
-    ingredients: string[];
-    missingIngredients: string[];
-    prepTime: string;
-    difficulty: string;
-    instructions: string;
-};
+import { Recipe } from "../types";
 
 export default function RecipeCard() {
 
@@ -60,7 +51,8 @@ export default function RecipeCard() {
                         <p>Prep Time: {recipe.prepTime}</p>
                         <p>Difficulty: {recipe.difficulty}</p>
                     </div>
-                ))    }  
+                    ))    
+                }  
                 
             </div>
         </DashboardCard>    

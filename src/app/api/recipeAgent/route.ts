@@ -19,6 +19,8 @@ const agent = createAgent({
 // Get recipes
 export async function GET() {
   try {
+
+    // Get items
     const items = await sql`
       SELECT name
       FROM "Inventory"."items"
@@ -34,6 +36,7 @@ export async function GET() {
       );
     `;
 
+    // Prepare prompt
     const ingredientNames = items.map((item) => item.name);
 
     const prompt = `
