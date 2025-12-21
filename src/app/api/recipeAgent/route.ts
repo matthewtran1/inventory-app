@@ -59,6 +59,11 @@ export async function GET() {
           }
         ],
       }
+
+      Important:
+      - All strings must be properly escaped so the JSON can be parsed.
+      - Do NOT include any text outside the JSON object.
+      - Escape all special characters (quotes, newlines, etc.).
       `;
 
     // Send prompt to agent
@@ -66,7 +71,7 @@ export async function GET() {
       messages: [{ role: "user", content: prompt }],
     });
     //console.log(response)
-    
+
     return NextResponse.json(response);
   } catch (err) {
     console.error(err);
