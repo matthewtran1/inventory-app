@@ -52,9 +52,10 @@ export async function GET() {
         "recipes": [
           {
             "name": "Recipe Name",
+            "ingredients": ["ingredient1", "ingredient2"],
             "missingIngredients": ["ingredient1", "ingredient2"],
             "prepTime": "15 mins",
-            "difficulty": "easy",
+            "difficulty": "Easy",
             "instructions": "Step by step instructions..."
           }
         ],

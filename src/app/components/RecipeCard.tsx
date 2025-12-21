@@ -3,8 +3,10 @@
 import { useState } from "react";
 import DashboardCard from "./DashboardCard";
 
+// Type for recipe data from API
 type Recipe = {
     name: string;
+    ingredients: string[];
     missingIngredients: string[];
     prepTime: string;
     difficulty: string;
@@ -13,9 +15,10 @@ type Recipe = {
 
 export default function RecipeCard() {
 
+    // Set state for recipes
     const [getRecipes, setRecipes] = useState<Recipe[]>([]);
 
-
+    // Get recipes from API
     const fetchRecipes = async () => {
         try {
             const response = await fetch("/api/recipeAgent");
@@ -23,7 +26,14 @@ export default function RecipeCard() {
             const aiText = data.messages[data.messages.length - 1].kwargs.content;
             const trimmedText = aiText.trim();
             const parsed = JSON.parse(trimmedText);
-            setRecipes(parsed.recipes);
+          
+            const cleanedRecipes = parsed.recipes.map((recipe: Recipe) => ({
+                ...recipe,
+                prepTime: recipe.prepTime.replace(/\n/g, ' ').trim(),
+                instructions: recipe.instructions.replace(/\n/g, ' ').trim(),
+            }));
+
+            setRecipes(cleanedRecipes);
         }
         catch (error) {
             console.error("Error fetching recipes:", error);
@@ -41,13 +51,14 @@ export default function RecipeCard() {
                     Get Recipe Suggestions
                 </button>
                 
+                {/* Display recipes if available */}
                 {Object.entries(getRecipes).map(([index, recipe]) => (
-                    <div key={index} className="border-b pb-2">
+                    <div key={index} className="rounded-md border p-2 bg-white">
                         <h3 className="font-semibold">{recipe.name}</h3>
+                        <p>My Ingredients: {recipe.ingredients.join(", ") || "None"}</p>
                         <p>Missing Ingredients: {recipe.missingIngredients.join(", ") || "None"}</p>
                         <p>Prep Time: {recipe.prepTime}</p>
                         <p>Difficulty: {recipe.difficulty}</p>
-                        <p>Instructions: {recipe.instructions}</p>
                     </div>
                 ))    }  
                 
