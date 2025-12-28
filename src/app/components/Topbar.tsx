@@ -46,28 +46,28 @@ export default function Topbar() {
         <nav className="md:hidden px-4 pb-4 flex flex-col gap-3">
           <Link
             href="/"
-            className="text-gray-700 hover:text-black font-medium"
+            className="text-black hover:text-black font-medium"
             onClick={() => setIsOpen(false)}
           >
             Dashboard
           </Link>
           <Link
             href="/inventory"
-            className="text-gray-700 hover:text-black font-medium"
+            className="text-black hover:text-black font-medium"
             onClick={() => setIsOpen(false)}
           >
             Inventory
           </Link>
           <Link
             href="/recipes"
-            className="text-gray-700 hover:text-black font-medium"
+            className="text-black hover:text-black font-medium"
             onClick={() => setIsOpen(false)}
           >
             Recipes
           </Link>
           <Link
             href="/settings"
-            className="text-gray-700 hover:text-black font-medium"
+            className="text-black hover:text-black font-medium"
             onClick={() => setIsOpen(false)}
           >
             Settings
