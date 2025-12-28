@@ -166,6 +166,7 @@ export default function Inventory() {
                 hover:bg-red-50
                 cursor-pointer
                 transition
+                mt-2
               "
               onClick={() => handleDeleteStorage(storage.id)}
               >Delete</div>
