@@ -10,7 +10,7 @@ export default function Topbar() {
   return (
     <header className="w-full bg-white border-b px-4">
       <div className="p-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold">Inventory</h1>
+        <h1 className="text-black text-xl font-bold">Inventory</h1>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-4">
