@@ -13,6 +13,7 @@ const accentStyles: Record<Accent, string> = {
   yellow: "bg-yellow-50 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300",
 };
 
+
 export default function DashboardCard({
   title,
   accent,

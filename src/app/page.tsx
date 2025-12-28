@@ -14,14 +14,12 @@ export default function Dashboard() {
 
         <RecipeCard />
         
-        <DashboardCard title="Fridge Summary" accent="blue">
-          <p>12 items</p>
-          <p>Fullness: 75%</p>
+        <DashboardCard title="Not used" accent="blue">
+          <p>Not used</p>
         </DashboardCard>
 
-        <DashboardCard title="Pantry Summary" accent="yellow">
-          <p>15 items</p>
-          <p>Fullness: 60%</p>
+        <DashboardCard title="Not used" accent="yellow">
+          <p>Not used</p>
         </DashboardCard>
 
       </div>

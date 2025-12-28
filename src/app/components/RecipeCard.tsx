@@ -14,6 +14,14 @@ export default function RecipeCard() {
         try {
             const response = await fetch("/api/recipeAgent");
             const data = await response.json();
+
+            // If API explicitly returns empty array
+            if (!data.recipes || data.recipes.length === 0) {
+                alert("No items in inventory — add ingredients to see recipe suggestions!");
+                setRecipes([]);
+                return;
+            }
+
             const aiText = data.messages[data.messages.length - 1].kwargs.content;
             const trimmedText = aiText.trim();
             const parsed = JSON.parse(trimmedText);
@@ -37,7 +45,7 @@ export default function RecipeCard() {
                 <p className="text-gray-600">Recipe suggestions will appear here based on your inventory.</p>
                 <button
                     onClick={fetchRecipes}
-                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"         
+                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition cursor-pointer"         
                 >
                     Get Recipe Suggestions
                 </button>

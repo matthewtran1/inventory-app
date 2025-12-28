@@ -36,6 +36,14 @@ export async function GET() {
       );
     `;
 
+    // if no items, return early
+    if (items.length === 0) {
+      return NextResponse.json({
+        recipes: [],
+        message: "No recipes available. Your inventory is empty.",
+      });
+    }
+
     // Prepare prompt
     const ingredientNames = items.map((item) => item.name);
 
@@ -55,8 +63,8 @@ export async function GET() {
         "recipes": [
           {
             "name": "Recipe Name",
-            "ingredients": ["ingredient1", "ingredient2"],
-            "missingIngredients": ["ingredient1", "ingredient2"],
+            "ingredients": ["ingredient1", "ingredient2", ...],
+            "missingIngredients": ["Missing ingredient1", "Missing ingredient2", ...],
             "prepTime": "15 mins",
             "difficulty": "Easy",
             "instructions": "Step by step instructions..."
