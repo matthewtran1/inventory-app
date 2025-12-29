@@ -3,7 +3,7 @@ const config = {
   theme: {
     extend: {},
   },
-  darkMode: 'class',
+  darkMode: false,
 };
 
 export default config;
