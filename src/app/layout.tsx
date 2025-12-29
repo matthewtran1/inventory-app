@@ -12,12 +12,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen bg-red-500">
+      <body className="flex flex-col min-h-screen">
         {/* Top Bar */}
         <Topbar />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-zinc-50">
+        <main className="flex-1 overflow-y-auto bg-red-500">
           {children}
         </main>
       </body>
