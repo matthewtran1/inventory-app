@@ -42,7 +42,7 @@ export default function RecipeCard() {
     return (    
         <DashboardCard title="Recipe Suggestions" accent='green'>
             <div className="flex flex-col gap-2">
-                <p className="text-gray-600">Recipe suggestions will appear here based on your inventory.</p>
+                <p className="">Recipe suggestions will appear here based on your inventory.</p>
                 <button
                     onClick={fetchRecipes}
                     className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition cursor-pointer"         
