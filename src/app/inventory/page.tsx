@@ -23,18 +23,6 @@ export default function Inventory() {
   // Set active item for editing
   const [activeItem, setActiveItem] = useState<Item | null>(null);
 
-  // Add item to correct storage
-  const handleAddItem = (storageId: string, newItem: Item) => {
-    setInventory((prev) =>
-      prev.map((storage) =>
-        storage.id === storageId
-            // Add the new item to the storage's items array
-            // If storage.items is undefined, default to an empty array first
-          ? { ...storage, items: [...(storage.items ?? []), newItem] }
-          : storage
-      )
-    );
-  };
 
   // create new storage
   async function handleAddStorage(newStorage: Storage) {
@@ -42,7 +30,7 @@ export default function Inventory() {
   }
 
   // Delete item from storage
-  const handleDeleteItem = async (storageId: string, itemId: string) => {
+  const handleDeleteItem = async (storageId: string, itemId: number) => {
     setInventory(prev =>
       prev.map(storage =>
         storage.id === storageId
@@ -67,18 +55,6 @@ export default function Inventory() {
     }
   };
 
-  // Edit item
-
-  const handleEditItem = async (item: object) => {
-   
-    // open item form with item data populated
-    try {
-      console.log("Editing item:", item);
-    } catch (err) {
-      console.error(err);
-  
-    }
-  }
 
   // Delete storage
   const handleDeleteStorage = async (storageId: string) => {
@@ -205,7 +181,11 @@ export default function Inventory() {
                   setActiveStorageId(storage.id); 
                   setIsFormOpen(true);
                 }}
-                onDelete={(itemId) => handleDeleteItem(storage.id, itemId)}
+                onDelete={(itemId) => {
+                  if (itemId !== undefined) {
+                    handleDeleteItem(storage.id, itemId);
+                  }
+                }}
               />
             ))}
           </div>
@@ -226,24 +206,20 @@ export default function Inventory() {
         storageId={activeStorageId}
         item={activeItem ?? undefined}  
         onSubmit={(storageId, updatedItem) => {
-          if (activeItem) {
-            // Edit mode → update item in state
-            setInventory(prev =>
-              prev.map(storage =>
-                storage.id === storageId
-                  ? {
-                      ...storage,
-                      items: storage.items.map(i =>
-                        i.id === updatedItem.id ? updatedItem : i
-                      ),
-                    }
-                  : storage
-              )
-            );
-          } else {
-            // Add mode → add new item
-            handleAddItem(storageId, updatedItem);
-          }
+          // Update state in inventory
+          setInventory(prev =>
+            prev.map(storage =>
+              storage.id === storageId
+                ? {
+                    ...storage,
+                    items: activeItem
+                      ? storage.items.map(i => i.id === updatedItem.id ? updatedItem : i) // edit
+                      : [...(storage.items ?? []), updatedItem] // add
+                  }
+                : storage
+            )
+          );
+
           setIsFormOpen(false);  // close popup
           setActiveItem(null);    // clear active item
         }}

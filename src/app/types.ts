@@ -1,6 +1,6 @@
 // src/app/types.ts
 export type Item = {
-  id: string;
+  id?: number;
   storage_id: string;
   name: string;
   entered_date: string;

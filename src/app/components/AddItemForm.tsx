@@ -20,9 +20,8 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Create new item, with random id
+    // Create new item
     const newItem: Item = {
-      id: crypto.randomUUID(),
       storage_id: storageId,
       name: itemName,
       entered_date: new Date().toISOString().slice(0, 10),
@@ -30,14 +29,20 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
       notes,
     };
 
+
     try {
+
+      const method = item ? "PATCH" : "POST";
+      // const url = item ? `/api/items/${item.id}` : "/api/items";
+
       // Send storageId along with the item
       const res = await fetch("/api/items", {
-        method: "POST",
+        method: method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...newItem,
-          storageId, 
+          id: item?.id,
+          storage_id: storageId, 
         }),
       });
 
@@ -53,7 +58,7 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
       }
     } catch (err) {
       console.error(err);
-      alert(`Error adding item to storage ${storageId}`);
+      alert(`Error adding or saving item to storage ${storageId}`);
     }
   };
 
@@ -64,7 +69,7 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
         className="bg-white p-6 rounded shadow-md w-80 flex flex-col space-y-4"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-xl font-semibold">Add New Item</h2>
+        <h2 className="text-xl font-semibold">{item ? "Edit an Item" : "Add an Item"}</h2>
         <div className="flex flex-col gap-1">
           <label className="text-sm text-gray-600">
             Item Name

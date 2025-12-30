@@ -4,7 +4,7 @@ import { neon } from "@neondatabase/serverless";
 const sql = neon(process.env.DATABASE_URL!); 
 
 interface ItemPayload {
-  id: string;
+  id?: number;
   storage_id: string;
   name: string;
   entered_date?: string;
@@ -21,15 +21,14 @@ export async function GET() {
   return NextResponse.json(items);
 }
 
-
 // Create a new item
 export async function POST(request: NextRequest) {
   try {
     const body: ItemPayload = await request.json();
-    const { id, storage_id, name, entered_date, expired_date, notes } = body;
+    const { storage_id, name, entered_date, expired_date, notes } = body;
     
     if (
-      typeof id !== "string" ||
+      typeof storage_id !== "string" ||
       typeof name !== "string" ||
       name.trim().length === 0 ||
 
@@ -63,6 +62,50 @@ export async function POST(request: NextRequest) {
     console.error(err);
     return NextResponse.json(
       { error: "Failed to insert item" },
+      { status: 500 }
+    );
+  }
+}
+
+// update an item
+export async function PATCH(request: NextRequest) {
+  try {
+    const body: ItemPayload = await request.json();
+    const { id, storage_id, name, entered_date, expired_date, notes } = body;
+    console.log(body);
+    if (
+      typeof id !== "number" ||
+      typeof name !== "string" ||
+      name.trim().length === 0 ||
+
+      (entered_date !== undefined && typeof entered_date !== "string") ||
+      (expired_date !== undefined && typeof expired_date !== "string") ||
+      (notes !== undefined && typeof notes !== "string")
+    ) {
+      return NextResponse.json(
+        { error: "Invalid item payload" },
+        { status: 400 }
+      );
+    }
+
+    // [] is array destructuring to get first item from returned rows
+    /*
+    const arr = [10, 20, 30];
+    const [first] = arr;
+    console.log(first); // 10
+    */
+    const [item] = await sql`
+      UPDATE "Inventory"."items"
+      SET name = ${name}, entered_date = ${entered_date ?? null}, expired_date = ${expired_date ?? null}, notes = ${notes ?? null}
+      WHERE id = ${id} AND storage_id = ${storage_id}
+      RETURNING *
+    `;
+    return NextResponse.json(item, { status: 200 });
+
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Failed to update item" },
       { status: 500 }
     );
   }
