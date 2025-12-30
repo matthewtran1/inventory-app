@@ -40,6 +40,7 @@ export default function ItemCard(
     expired: "bg-red-50 border-red-500",
   };
 
+
   return (
     
     <div className="relative border border-gray-200 rounded-lg p-4 hover:shadow-sm transition">
@@ -49,11 +50,26 @@ export default function ItemCard(
           <div className={`border rounded-lg p-4 transition ${statusColors[expiryStatus]}`}></div>
         </div>
       </div>
-      <div className="text-red-500">Amount: {amount}%</div>
+
+      {/* Amount Bar */}
+      <div className="mt-2">
+        <label className="text-sm text-gray-600">Amount: {amount ?? 0}%</label>
+        <div className="w-full h-4 bg-gray-200 rounded mt-1">
+          <div
+            className={`h-4 rounded ${
+              (amount ?? 0) > 50 ? "bg-green-500" : (amount ?? 0) > 20 ? "bg-yellow-500" : "bg-red-500"
+            }`}
+            style={{ width: `${amount ?? 0}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Other Details */}
       <div className="text-gray-600 text-sm">Entered: {enteredDate}</div>
       <div className="text-gray-600 text-sm">Expires: {expiryDate}</div>
       <div className="text-gray-600 text-sm">Notes: {notes}</div>
 
+      {/* Edit and Delete Buttons */}
       <div className="flex justify-between mt-2">
         { id !== undefined && (
         <button
