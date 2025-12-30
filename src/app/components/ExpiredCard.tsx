@@ -71,7 +71,7 @@ export default function ExpiringSoonCard() {
             <li key={storage}>
               <div className="flex flex-col rounded-md border p-2 bg-white">
                 {/* Storage header */}
-                <p className="underline underline-offset-2 font-medium">{storage}</p>
+                <p className="underline underline-offset-2 font-medium text-lg">{storage}</p>
 
                 {/* Items in this storage */}
                 <ul className="mt-2 space-y-2">
