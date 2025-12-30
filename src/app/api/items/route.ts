@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
     const body: ItemPayload = await request.json();
     const { storage_id, name, entered_date, expired_date, notes } = body;
     
+    //  type checking
     if (
       typeof storage_id !== "string" ||
       typeof name !== "string" ||
@@ -72,7 +73,8 @@ export async function PATCH(request: NextRequest) {
   try {
     const body: ItemPayload = await request.json();
     const { id, storage_id, name, entered_date, expired_date, notes } = body;
-    console.log(body);
+    
+    //  type checking
     if (
       typeof id !== "number" ||
       typeof name !== "string" ||

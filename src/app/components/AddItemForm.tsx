@@ -32,8 +32,8 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
 
     try {
 
+      // if item exists, we're editing; otherwise, adding
       const method = item ? "PATCH" : "POST";
-      // const url = item ? `/api/items/${item.id}` : "/api/items";
 
       // Send storageId along with the item
       const res = await fetch("/api/items", {
