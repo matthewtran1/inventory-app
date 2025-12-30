@@ -173,6 +173,7 @@ export default function Inventory() {
                 key={item.id}
                 id = {item.id}
                 itemName={item.name}
+                amount={item.amount}
                 enteredDate={item.entered_date}
                 expiryDate={item.expired_date}
                 notes={item.notes}

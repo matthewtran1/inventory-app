@@ -10,6 +10,7 @@ interface ItemPayload {
   entered_date?: string;
   expired_date?: string;
   notes?: string;
+  amount?: number;
 }
 
 // Get all Items
@@ -25,7 +26,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body: ItemPayload = await request.json();
-    const { storage_id, name, entered_date, expired_date, notes } = body;
+    const { storage_id, name, amount, entered_date, expired_date, notes } = body;
     
     //  type checking
     if (
@@ -51,9 +52,9 @@ export async function POST(request: NextRequest) {
     */
     const [item] = await sql`
       INSERT INTO "Inventory"."items"
-        (storage_id, name, entered_date, expired_date, notes)
+        (storage_id, name, entered_date, expired_date, notes, amount)
       VALUES
-        (${storage_id}, ${name}, ${entered_date ?? null}, ${expired_date ?? null}, ${notes ?? null})
+        (${storage_id}, ${name}, ${entered_date ?? null}, ${expired_date ?? null}, ${notes ?? null}, ${amount ?? 100})
       RETURNING *
     `;
 
@@ -72,11 +73,12 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const body: ItemPayload = await request.json();
-    const { id, storage_id, name, entered_date, expired_date, notes } = body;
+    const { id, storage_id, name, entered_date, expired_date, notes, amount } = body;
     
     //  type checking
     if (
       typeof id !== "number" ||
+      typeof amount !== "number" ||
       typeof name !== "string" ||
       name.trim().length === 0 ||
 
@@ -98,7 +100,7 @@ export async function PATCH(request: NextRequest) {
     */
     const [item] = await sql`
       UPDATE "Inventory"."items"
-      SET name = ${name}, entered_date = ${entered_date ?? null}, expired_date = ${expired_date ?? null}, notes = ${notes ?? null}
+      SET name = ${name}, amount = ${amount ?? 100}, entered_date = ${entered_date ?? null}, expired_date = ${expired_date ?? null}, notes = ${notes ?? null}
       WHERE id = ${id} AND storage_id = ${storage_id}
       RETURNING *
     `;

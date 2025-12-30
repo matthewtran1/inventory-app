@@ -5,13 +5,14 @@ type ItemCardProps = {
   enteredDate: string;
   expiryDate: string;
   notes: string;
+  amount?: number;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
 
 export default function ItemCard(
-  { id, itemName, enteredDate, expiryDate, notes, onEdit, onDelete }: ItemCardProps
+  { id, itemName, amount, enteredDate, expiryDate, notes, onEdit, onDelete }: ItemCardProps
 ) {
 
   // Calculate expiry status
@@ -48,7 +49,7 @@ export default function ItemCard(
           <div className={`border rounded-lg p-4 transition ${statusColors[expiryStatus]}`}></div>
         </div>
       </div>
-
+      <div className="text-red-500">Amount: {amount}%</div>
       <div className="text-gray-600 text-sm">Entered: {enteredDate}</div>
       <div className="text-gray-600 text-sm">Expires: {expiryDate}</div>
       <div className="text-gray-600 text-sm">Notes: {notes}</div>
@@ -71,7 +72,7 @@ export default function ItemCard(
             Delete
           </button>
         )}
-              </div>
+      </div>
     </div>
 
   )

@@ -16,6 +16,7 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
   const [itemName, setItemName] = useState(item?.name ?? "");
   const [expiryDate, setExpiryDate] = useState(item?.expired_date ?? "");
   const [notes, setNotes] = useState(item?.notes ?? "");
+  const [amount, setAmount] = useState(item?.amount ?? 100); // default 100%
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
     const newItem: Item = {
       storage_id: storageId,
       name: itemName,
+      amount: amount,
       entered_date: new Date().toISOString().slice(0, 10),
       expired_date: expiryDate,
       notes,
@@ -82,6 +84,29 @@ export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddI
             className="border px-2 py-1 rounded"
           />
         </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm text-gray-600">
+            Amount ({amount}%)
+          </label>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={amount}
+            onChange={(e) => setAmount(Number(e.target.value))}
+            className="w-full"
+          />
+          <input
+            type="number"
+            min={0}
+            max={100}
+            value={amount}
+            onChange={(e) => setAmount(Number(e.target.value))}
+            className="border px-2 py-1 rounded mt-1 w-20"
+          />
+        </div>
+
 
         <div className="flex flex-col gap-1">
           <label className="text-sm text-gray-600">

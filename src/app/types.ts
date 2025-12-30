@@ -6,6 +6,7 @@ export type Item = {
   entered_date: string;
   expired_date: string;
   notes: string;
+  amount?: number;
 };
 
 export type Storage = {
