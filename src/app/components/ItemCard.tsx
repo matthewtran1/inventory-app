@@ -54,7 +54,7 @@ export default function ItemCard(
       {/* Amount Bar */}
       <div className="mt-2">
         <label className="text-sm text-gray-600">Amount: {amount ?? 0}%</label>
-        <div className="w-full h-4 bg-gray-200 rounded mt-1">
+        <div className="w-full h-4 bg-gray-200 rounded my-1">
           <div
             className={`h-4 rounded ${
               (amount ?? 0) > 50 ? "bg-green-500" : (amount ?? 0) > 20 ? "bg-yellow-500" : "bg-red-500"

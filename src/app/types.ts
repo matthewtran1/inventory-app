@@ -25,3 +25,23 @@ export type Recipe = {
     difficulty: string;
     instructions: string;
 };
+
+// Type for expiring items from API
+export type ExpiringItem = {
+  name: string;
+  storage: string;
+  entered_date: string;
+  expired_date: string;
+};
+
+export type ItemWithDays = {
+  name: string;
+  storage: string;
+  daysLeft: number;
+};
+
+// Type for low amount items
+export type LowAmountItem = {
+    name: string;
+    amount: number;
+};

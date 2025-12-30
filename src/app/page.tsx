@@ -1,6 +1,7 @@
 import ExpiredCard from "./components/ExpiredCard";
 import RecipeCard from "./components/RecipeCard";
 import DashboardCard from "./components/DashboardCard";
+import AmountCard from "./components/AmountCard";
 
 export default function Dashboard() {
   return (
@@ -14,9 +15,7 @@ export default function Dashboard() {
 
         <RecipeCard />
         
-        <DashboardCard title="Not used" accent="blue">
-          <p>Not used</p>
-        </DashboardCard>
+        <AmountCard />
 
         <DashboardCard title="Not used" accent="yellow">
           <p>Not used</p>

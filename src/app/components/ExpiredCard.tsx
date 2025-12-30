@@ -2,19 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import DashboardCard from './DashboardCard';
+import { ExpiringItem, ItemWithDays} from '../types';
 
-type ExpiringItem = {
-  name: string;
-  storage: string;
-  entered_date: string;
-  expired_date: string;
-};
-
-type ItemWithDays = {
-  name: string;
-  storage: string;
-  daysLeft: number;
-};
 
 export default function ExpiringSoonCard() {
   const [expiredItems, setExpiredItems] = useState<ItemWithDays[]>([]);
