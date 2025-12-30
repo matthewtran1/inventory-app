@@ -20,6 +20,9 @@ export default function Inventory() {
   // Storage Form
   const [isStorageFormOpen, setIsStorageFormOpen] = useState(false);
 
+  // Set active item for editing
+  const [activeItem, setActiveItem] = useState<Item | null>(null);
+
   // Add item to correct storage
   const handleAddItem = (storageId: string, newItem: Item) => {
     setInventory((prev) =>
@@ -63,6 +66,19 @@ export default function Inventory() {
       alert(`Error failed to delete item from storage ${storageId}`);
     }
   };
+
+  // Edit item
+
+  const handleEditItem = async (item: object) => {
+   
+    // open item form with item data populated
+    try {
+      console.log("Editing item:", item);
+    } catch (err) {
+      console.error(err);
+  
+    }
+  }
 
   // Delete storage
   const handleDeleteStorage = async (storageId: string) => {
@@ -116,7 +132,7 @@ export default function Inventory() {
           <h1 className="text-3xl font-semibold text-gray-800">Inventory</h1>
 
           <div
-            className="text-3xl font-semibold cursor-pointer px-3 py-1 rounded-md hover:bg-blue-500 hover:text-white transition-colors"
+            className="text-3xl font-semibold cursor-pointer px-2 pb-1 mr-2 rounded-md hover:bg-blue-500 hover:text-white transition-colors"
             onClick={() => setIsStorageFormOpen(true)}
           >
             +
@@ -134,7 +150,7 @@ export default function Inventory() {
           <div className="flex justify-between">
             <div className="text-3xl font-semibold">{storage.name}</div>
             <div
-              className="text-3xl font-semibold cursor-pointer px-2 rounded hover:bg-blue-500 hover:text-white transition-colors"
+              className="text-3xl font-semibold cursor-pointer px-2 pb-1 rounded hover:bg-blue-500 hover:text-white transition-colors"
               onClick={() => {
                 setActiveStorageId(storage.id);
                 setIsFormOpen(true);
@@ -184,6 +200,11 @@ export default function Inventory() {
                 enteredDate={item.entered_date}
                 expiryDate={item.expired_date}
                 notes={item.notes}
+                onEdit={() => {
+                  setActiveItem(item);           
+                  setActiveStorageId(storage.id); 
+                  setIsFormOpen(true);
+                }}
                 onDelete={(itemId) => handleDeleteItem(storage.id, itemId)}
               />
             ))}
@@ -201,12 +222,37 @@ export default function Inventory() {
 
       {/* Add Item Popup */}
       {isFormOpen && activeStorageId && (
-        <AddItemForm
-          storageId={activeStorageId}
-          onSubmit={handleAddItem}
-          onClose={() => setIsFormOpen(false)}
-        />
-      )}
+      <AddItemForm
+        storageId={activeStorageId}
+        item={activeItem ?? undefined}  
+        onSubmit={(storageId, updatedItem) => {
+          if (activeItem) {
+            // Edit mode → update item in state
+            setInventory(prev =>
+              prev.map(storage =>
+                storage.id === storageId
+                  ? {
+                      ...storage,
+                      items: storage.items.map(i =>
+                        i.id === updatedItem.id ? updatedItem : i
+                      ),
+                    }
+                  : storage
+              )
+            );
+          } else {
+            // Add mode → add new item
+            handleAddItem(storageId, updatedItem);
+          }
+          setIsFormOpen(false);  // close popup
+          setActiveItem(null);    // clear active item
+        }}
+        onClose={() => {
+          setIsFormOpen(false);
+          setActiveItem(null);
+        }}
+      />
+    )}
 
     </div>
   );

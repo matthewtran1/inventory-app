@@ -6,15 +6,16 @@ import { Item } from "../types";
 // type props
 type AddItemFormProps = {
   storageId: string;
+  item?: Item;
   onSubmit: (storageId: string, item: Item) => void;
   onClose: () => void;
 };
 
 // Form popup to add items
-export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFormProps) {
-  const [itemName, setItemName] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [notes, setNotes] = useState("");
+export default function AddItemForm({ storageId, item, onSubmit, onClose }: AddItemFormProps) {
+  const [itemName, setItemName] = useState(item?.name ?? "");
+  const [expiryDate, setExpiryDate] = useState(item?.expired_date ?? "");
+  const [notes, setNotes] = useState(item?.notes ?? "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +105,7 @@ export default function AddItemForm({ storageId, onSubmit, onClose }: AddItemFor
             Cancel
           </button>
           <button type="submit" className="px-4 py-1 rounded bg-blue-500 text-white cursor-pointer">
-            Add
+            {item ? "Save" : "Add"}
           </button>
         </div>
       </form>

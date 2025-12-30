@@ -5,12 +5,13 @@ type ItemCardProps = {
   enteredDate: string;
   expiryDate: string;
   notes: string;
+  onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 };
 
 
 export default function ItemCard(
-  { id, itemName, enteredDate, expiryDate, notes, onDelete }: ItemCardProps
+  { id, itemName, enteredDate, expiryDate, notes, onEdit, onDelete }: ItemCardProps
 ) {
 
   // Calculate expiry status
@@ -52,11 +53,16 @@ export default function ItemCard(
       <div className="text-gray-600 text-sm">Expires: {expiryDate}</div>
       <div className="text-gray-600 text-sm">Notes: {notes}</div>
 
-      <button className="absolute bottom-4 right-4 border rounded-lg p-1 text-gray-500 hover:text-red-500 cursor-pointer" onClick={() => onDelete(id)}>
-        Delete
-      </button>
-    </div>
+      <div className="flex justify-between mt-2">
+        <button className="border rounded-lg py-1 px-4 text-gray-500 hover:text-blue-500 cursor-pointer" onClick={() => onEdit(id)}>
+          Edit
+        </button>
 
+        <button className="border rounded-lg p-1 text-gray-500 hover:text-red-500 cursor-pointer" onClick={() => onDelete(id)}>
+          Delete
+        </button>
+      </div>
+    </div>
 
   )
 }
