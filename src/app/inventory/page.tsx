@@ -168,7 +168,10 @@ export default function Inventory() {
           {/* Scrollable Items Area */}
           <div className="max-h-64 overflow-y-auto pr-2 space-y-4 mt-4">
             {/* Render items inside storage */}
-            {storage.items?.map((item) => (
+            {storage.items
+            ?.slice()            // create a shallow copy to avoid mutating original
+            .reverse()        // reverse order so new items are added at the top
+            .map((item) => (
               <ItemCard
                 key={item.id}
                 id = {item.id}
