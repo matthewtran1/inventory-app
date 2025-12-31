@@ -36,40 +36,42 @@ export async function GET() {
       );
     `;
 
-    // if no items, return early
-    if (items.length === 0) {
-      return NextResponse.json({
-        recipes: [],
-        message: "No recipes available. Your inventory is empty.",
-      });
-    }
 
     // Prepare prompt
-    const ingredientNames = items.map((item) => item.name);
+    const ingredientNames = items.map((item) => item.name.toLowerCase());
 
     const prompt = `
       You are an average home cook making quick, simple meals.
       Think weeknight dinners, minimal prep, and basic cooking skills.
 
-      Ingredients you have:
+      Ingredients I already have (available in my kitchen):
       ${ingredientNames.join(", ")}
 
-      Generate 5 easy recipes most people could make at home.
-      Rank them by popularity.
-
-      Return ONLY JSON, with this structure:
+      Instructions:
+      1. Generate 5 easy recipes most people could make at home.
+      2. In the "ingredients" field, list **only ingredients actually required for the recipe**, including ingredients you already have.
+      3. In the "missingIngredients" field, list **only ingredients required by the recipe that are NOT in the available list above**.
+      4. Do NOT put any available ingredients in "missingIngredients".
+      5. Ignore nonsense or test ingredients that are not real food items.
+      6. Make the instructions very detailed so a beginner cook can easily each step
+      7. Only include meals that can be made with beginner-friendly equipment (pans, pots, air fryer, oven, etc.). Do NOT include recipes that require a grill or advanced appliances.
+      8. Return ONLY JSON in this format:
 
       {
         "recipes": [
           {
             "name": "Recipe Name",
             "ingredients": ["ingredient1", "ingredient2", ...],
-            "missingIngredients": ["Missing ingredient1", "Missing ingredient2", ...],
+            "missingIngredients": ["Missing ingredient1", ...],
             "prepTime": "15 mins",
             "difficulty": "Easy",
-            "instructions": "Step by step instructions..."
+            "instructions": {
+              "step1": "Do this first",
+              "step2": "Do this next",
+              "step3": "Finish with this"
+            }
           }
-        ],
+        ]
       }
 
       Important:

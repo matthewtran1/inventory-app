@@ -16,20 +16,14 @@ export default function RecipeCard() {
             const data = await response.json();
 
             // If API explicitly returns empty array
-            if (!data.recipes || data.recipes.length === 0) {
-                alert("No items in inventory — add ingredients to see recipe suggestions!");
-                setRecipes([]);
-                return;
-            }
 
             const aiText = data.messages[data.messages.length - 1].kwargs.content;
             const trimmedText = aiText.trim();
             const parsed = JSON.parse(trimmedText);
-          
+            console.log(parsed)
             const cleanedRecipes = parsed.recipes.map((recipe: Recipe) => ({
                 ...recipe,
                 prepTime: recipe.prepTime.replace(/\n/g, ' ').trim(),
-                instructions: recipe.instructions.replace(/\n/g, ' ').trim(),
             }));
 
             setRecipes(cleanedRecipes);
@@ -55,7 +49,7 @@ export default function RecipeCard() {
                     <div key={index} className="rounded-md border p-2 bg-white">
                         <h3 className="font-semibold">{recipe.name}</h3>
                         <p>My Ingredients: {recipe.ingredients.join(", ") || "None"}</p>
-                        <p>Missing Ingredients: {recipe.missingIngredients.join(", ") || "None"}</p>
+                        <p className="text-red-600">Missing Ingredients: {recipe.missingIngredients.join(", ") || "None"}</p>
                         <p>Prep Time: {recipe.prepTime}</p>
                         <p>Difficulty: {recipe.difficulty}</p>
                     </div>

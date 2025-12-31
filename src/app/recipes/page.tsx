@@ -16,14 +16,10 @@ const Recipe = () => {
             const aiText = data.messages[data.messages.length - 1].kwargs.content;
             const trimmedText = aiText.trim();
             const parsed = JSON.parse(trimmedText);
-            
+            console.log(parsed)
             const cleanedRecipes = parsed.recipes.map((recipe: Recipe) => ({
                 ...recipe,
                 prepTime: recipe.prepTime.replace(/\n/g, ' ').trim(),
-                instructions: recipe.instructions
-                    .replace(/\r?\n|\\n/g, ' ') // replace all types of newlines with space
-                    .replace(/\s+/g, ' ')       // collapse multiple spaces
-                    .trim(),
             }));
 
             setRecipes(cleanedRecipes);
@@ -81,9 +77,13 @@ const Recipe = () => {
                 <p className="text-gray-700 mb-1">
                 <span className="font-semibold">Difficulty:</span> {recipe.difficulty}
                 </p>
-                <p className="text-gray-700">
-                <span className="font-semibold">Steps:</span> {recipe.instructions}
-                </p>
+                
+                <span className="font-semibold">Instructions:</span>
+                <div className="pl-4">
+                {Object.entries(recipe.instructions).map(([key, step], idx) => (
+                    <p key={key}>{idx + 1}. {step}</p>
+                ))}
+                </div>
             </div>
             ))
         )}
