@@ -26,7 +26,7 @@ export default function AmountCard() {
     }, []);
 
     return (    
-        <DashboardCard title="Low Item Amounts" accent='blue'>
+        <DashboardCard title="Low Items" accent='blue'>
             <div className="flex flex-col gap-2">
             {getLowItems.length > 0 ? (
                 getLowItems.map((item, index) => (
