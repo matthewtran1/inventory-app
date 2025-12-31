@@ -6,7 +6,7 @@ import AmountCard from "./components/AmountCard";
 export default function Dashboard() {
   return (
     <div
-      className="p-4 bg-zinc-50 dark:bg-gray-900"
+      className="p-4 bg-zinc-50 "
       style={{ height: "calc(100vh - 64px)" }}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 h-full">
