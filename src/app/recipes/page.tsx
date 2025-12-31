@@ -34,7 +34,7 @@ const Recipe = () => {
     }
   return (
 
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="h-full flex flex-col">
     {/* Page Container */}
     <div className="flex-1 flex flex-col p-8 max-w-8xl mx-auto w-full">
         

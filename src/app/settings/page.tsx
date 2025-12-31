@@ -1,6 +1,6 @@
 const Settings = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="h-full p-8">
       <div className="mx-auto">
         {/* Page Header */}
         
@@ -56,7 +56,7 @@ const Settings = () => {
             These actions are irreversible.
           </p>
 
-          <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+          <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 cursor-pointer">
             Delete Account
           </button>
         </div>
