@@ -21,7 +21,7 @@ export default function DashboardCard({
 }: DashboardCardProps) {
   return (
     <div
-      className={`rounded-xl shadow-md p-6 flex flex-col h-full ${accentStyles[accent]}`}
+      className={`rounded-xl shadow-md p-6 flex flex-col h-[50vh] sm:h-auto ${accentStyles[accent]}`}
     >
       <h2 className="text-xl font-semibold mb-4">
         {title}

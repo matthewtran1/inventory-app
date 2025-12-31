@@ -9,7 +9,7 @@ export default function Dashboard() {
       className="p-4 bg-zinc-50 "
       style={{ height: "calc(100vh - 64px)" }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 h-full">
 
         <ExpiredCard />
 
