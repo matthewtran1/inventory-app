@@ -17,7 +17,7 @@ export default function RootLayout({
         <Topbar />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-zinc-50">
+        <main className=" bg-zinc-50">
           {children}
         </main>
       </body>
