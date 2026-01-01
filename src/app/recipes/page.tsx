@@ -13,6 +13,13 @@ const Recipe = () => {
         try {
             const response = await fetch("/api/recipeAgent");
             const data = await response.json();
+
+            // If API explicitly returns empty array
+            if (data.length === 0) {
+                alert("No recipes available. Your inventory might be empty.");
+                return; 
+            }
+
             const aiText = data.messages[data.messages.length - 1].kwargs.content;
             const trimmedText = aiText.trim();
             const parsed = JSON.parse(trimmedText);
