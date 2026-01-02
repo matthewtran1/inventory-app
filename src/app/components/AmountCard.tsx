@@ -44,7 +44,7 @@ export default function AmountCard() {
                     </div>
                 ))
                 ) : (
-                    <p className="text-gray-500 text-sm">No items running low!</p>
+                    <p className="">No items running low!</p>
                 )}
          
                 
