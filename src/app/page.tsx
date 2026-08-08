@@ -10,17 +10,12 @@ export default function Dashboard() {
       style={{ height: "calc(100vh - 64px)" }}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 h-full">
-
         <ExpiredCard />
-
-        <RecipeCard />
-        
         <AmountCard />
 
-        <DashboardCard title="Not used" accent="yellow">
-          <p>Not used</p>
-        </DashboardCard>
-
+        <div className="md:row-span-2 md:col-start-2 md:row-start-1">
+          <RecipeCard />
+        </div>
       </div>
     </div>
   );

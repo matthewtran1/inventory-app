@@ -6,13 +6,12 @@ type DashboardCardProps = {
   children: React.ReactNode;
 };
 
-const accentStyles: Record<Accent, string> = {
-  red: "bg-red-50 text-red-600",
-  green: "bg-green-50 text-green-600",
-  blue: "bg-blue-50 text-blue-600",
-  yellow: "bg-yellow-50 text-yellow-600",
+const accentBorder: Record<Accent, string> = {
+  red: "border-l-red-500",
+  green: "border-l-green-500",
+  blue: "border-l-blue-500",
+  yellow: "border-l-yellow-500",
 };
-
 
 export default function DashboardCard({
   title,
@@ -21,13 +20,13 @@ export default function DashboardCard({
 }: DashboardCardProps) {
   return (
     <div
-      className={`rounded-xl shadow-md p-6 flex flex-col h-[50vh] sm:h-auto ${accentStyles[accent]}`}
+      className={`rounded-2xl border border-zinc-100 border-l-4 ${accentBorder[accent]} bg-white shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col h-full`}
     >
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className="text-lg font-semibold text-zinc-900 mb-4 tracking-tight">
         {title}
       </h2>
 
-      <div className="flex-1 overflow-y-auto text-gray-800">
+      <div className="flex-1 overflow-y-auto text-zinc-700">
         {children}
       </div>
     </div>
