@@ -27,9 +27,9 @@ export default function Topbar() {
           >
             Recipes
           </Link>
-          <Link href="/settings" className="text-gray-700 hover:text-black font-medium">
+          {/* <Link href="/settings" className="text-gray-700 hover:text-black font-medium">
             Settings
-          </Link>
+          </Link> */}
         </nav>
 
         {/* Mobile Hamburger */}
@@ -65,13 +65,13 @@ export default function Topbar() {
           >
             Recipes
           </Link>
-          <Link
+          {/* <Link
             href="/settings"
             className="text-black hover:text-black font-medium"
             onClick={() => setIsOpen(false)}
           >
             Settings
-          </Link>
+          </Link> */}
         </nav>
       )}
     </header>
